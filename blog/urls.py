@@ -1,4 +1,8 @@
-from django.urls import path
+from django.urls import path, include
+from .views import ContactFormView, ContactResultView
+from django.contrib.flatpages.sitemaps import FlatPageSitemap
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.flatpages import views
 
 from blog.views import (
     IndexView,
@@ -17,6 +21,11 @@ from blog.views import (
 )
 
 app_name = 'blog'
+
+sitemaps = {
+    'flatpages': FlatPageSitemap,
+}
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
@@ -32,4 +41,8 @@ urlpatterns = [
     path('reply/<int:pk>/', ReplyFormView.as_view(), name='reply_form'),
     path('reply/<int:pk>/approve/', reply_approve, name='reply_approve'),
     path('reply/<int:pk>/remove/', reply_remove, name='reply_remove'),
+    path('contact/', ContactFormView.as_view(), name='contact_form'),
+    path('contact/result/', ContactResultView.as_view(), name='contact_result'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    path('pages/', include('django.contrib.flatpages.urls')),
 ]
