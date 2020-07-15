@@ -10,7 +10,7 @@ from django.utils import timezone
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -19,7 +19,7 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
